@@ -35,6 +35,15 @@ class CamelCaseTest {
                 CamelCase.converterCamelCase("nomeCPFComposto")
         );
     }
+
+    @Test
+    void deveConferirPalavrarComNumeros() {
+        assertEquals(
+                Arrays.asList("nome", "CPF", "composto", "2024", "Fim"),
+                CamelCase.converterCamelCase("nomeCPFComposto2024Fim")
+        );
+    }
+
 //    @Test
 //    void mainTeste() {
 //        List<String> lista = CamelCase.converterCamelCase("nome");
