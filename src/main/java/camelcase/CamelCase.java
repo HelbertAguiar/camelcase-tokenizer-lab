@@ -35,6 +35,14 @@ public class CamelCase {
         char atual = texto.charAt(indiceAtual);
         char anterior = texto.charAt(indiceAtual - 1);
 
+        if (Character.isDigit(atual) && Character.isLetter(anterior)) {
+            return true;
+        }
+
+        if (Character.isLetter(atual) && Character.isDigit(anterior)) {
+            return true;
+        }
+
         if (!Character.isUpperCase(atual)) {
             return false;
         }

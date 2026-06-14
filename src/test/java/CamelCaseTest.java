@@ -39,7 +39,7 @@ class CamelCaseTest {
     @Test
     void deveConferirPalavrarComNumeros() {
         assertEquals(
-                Arrays.asList("nome", "CPF", "composto", "2024", "Fim"),
+                Arrays.asList("nome", "CPF", "composto", "2024", "fim"),
                 CamelCase.converterCamelCase("nomeCPFComposto2024Fim")
         );
     }
