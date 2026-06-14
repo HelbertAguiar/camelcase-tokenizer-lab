@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
+import java.util.List;
+
+import camelcase.CamelCase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,4 +25,11 @@ class CamelCaseTest {
             CamelCase.converterCamelCase("nomeComposto")
         );
     }
+
+//    @Test
+//    void mainTeste() {
+//        List<String> lista = CamelCase.converterCamelCase("nome");
+//        System.out.println(lista);
+//    }
+
 }
