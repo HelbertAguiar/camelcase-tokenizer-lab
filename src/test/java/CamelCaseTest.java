@@ -7,6 +7,7 @@ import java.util.List;
 import camelcase.CamelCase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CamelCaseTest {
 
@@ -42,6 +43,26 @@ class CamelCaseTest {
                 Arrays.asList("nome", "CPF", "composto", "2024", "fim"),
                 CamelCase.converterCamelCase("nomeCPFComposto2024Fim")
         );
+    }
+
+    @Test
+    void deveRejeitarTextoQueComecaComNumero() {
+        IllegalArgumentException excecao = assertThrows(
+                IllegalArgumentException.class,
+                () -> CamelCase.converterCamelCase("10Primeiros")
+        );
+
+        assertEquals("Entrada invalida: nao deve comecar com numero.", excecao.getMessage());
+    }
+
+    @Test
+    void deveRejeitarTextoComCaracterEspecial() {
+        IllegalArgumentException excecao = assertThrows(
+                IllegalArgumentException.class,
+                () -> CamelCase.converterCamelCase("nome#Composto")
+        );
+
+        assertEquals("Entrada invalida: use apenas letras e numeros.", excecao.getMessage());
     }
 
 //    @Test

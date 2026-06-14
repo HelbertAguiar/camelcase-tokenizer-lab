@@ -6,7 +6,25 @@ import java.util.List;
 public class CamelCase {
 
     public static List<String> converterCamelCase(String original) {
+        validarEntrada(original);
         return converterParaListaDePalavras(original);
+    }
+
+    private static void validarEntrada(String texto) {
+        if (texto.isEmpty()) {
+            return;
+        }
+
+        if (Character.isDigit(texto.charAt(0))) {
+            throw new IllegalArgumentException("Entrada invalida: nao deve comecar com numero.");
+        }
+
+        for (int i = 0; i < texto.length(); i++) {
+            char caractereAtual = texto.charAt(i);
+            if (!Character.isLetterOrDigit(caractereAtual)) {
+                throw new IllegalArgumentException("Entrada invalida: use apenas letras e numeros.");
+            }
+        }
     }
 
     private static List<String> converterParaListaDePalavras(String texto) {
