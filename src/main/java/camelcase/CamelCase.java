@@ -9,31 +9,64 @@ public class CamelCase {
         return converterParaListaDePalavras(original);
     }
 
-    public static StringBuilder converterPrimeiraLetraParaMinuscula(StringBuilder str) {
-        return new StringBuilder(
-            (str.substring(0,1).toLowerCase() + str.substring(1))
-        );
-    }
+    private static List<String> converterParaListaDePalavras(String texto) {
+        List<String> palavras = new ArrayList<>();
+        StringBuilder palavraAtual = new StringBuilder();
 
-    public static List<String> converterParaListaDePalavras(String str) {
-        List<String> listaStrings = new ArrayList<>();
-        StringBuilder palavra = new StringBuilder();
-
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (i > 0 && Character.isUpperCase(c)) {
-                listaStrings.add(converterPrimeiraLetraParaMinuscula(palavra).toString());
-                palavra.setLength(0);
+        for (int i = 0; i < texto.length(); i++) {
+            char caractereAtual = texto.charAt(i);
+            if (deveQuebrarPalavra(texto, i)) {
+                adicionarPalavra(palavras, palavraAtual);
+                palavraAtual.setLength(0);
             }
-            palavra.append(c);
+            palavraAtual.append(caractereAtual);
         }
 
-        if (!palavra.isEmpty()) {
-            listaStrings.add(converterPrimeiraLetraParaMinuscula(palavra).toString());
-        }
+        adicionarPalavra(palavras, palavraAtual);
 
-        return listaStrings;
+        return palavras;
     }
 
-}
+    private static boolean deveQuebrarPalavra(String texto, int indiceAtual) {
+        if (indiceAtual == 0) {
+            return false;
+        }
 
+        char atual = texto.charAt(indiceAtual);
+        char anterior = texto.charAt(indiceAtual - 1);
+
+        if (!Character.isUpperCase(atual)) {
+            return false;
+        }
+
+        if (Character.isLowerCase(anterior)) {
+            return true;
+        }
+
+        return existeProximo(texto, indiceAtual)
+                && Character.isUpperCase(anterior)
+                && Character.isLowerCase(texto.charAt(indiceAtual + 1));
+    }
+
+    private static boolean existeProximo(String texto, int indiceAtual) {
+        return indiceAtual + 1 < texto.length();
+    }
+
+    private static void adicionarPalavra(List<String> palavras, StringBuilder palavraAtual) {
+        if (!palavraAtual.isEmpty()) {
+            palavras.add(normalizarPalavra(palavraAtual.toString()));
+        }
+    }
+
+    private static String normalizarPalavra(String palavra) {
+        if (ehSigla(palavra)) {
+            return palavra;
+        }
+
+        return palavra.substring(0, 1).toLowerCase() + palavra.substring(1);
+    }
+
+    private static boolean ehSigla(String palavra) {
+        return palavra.length() > 1 && palavra.equals(palavra.toUpperCase());
+    }
+}
