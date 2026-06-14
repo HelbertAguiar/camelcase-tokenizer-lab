@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +28,13 @@ class CamelCaseTest {
         );
     }
 
+    @Test
+    void deveConferirPalavrasCompostaComSigla(){
+        assertEquals(
+                Arrays.asList("nome", "CPF", "composto"),
+                CamelCase.converterCamelCase("nomeCPFComposto")
+        );
+    }
 //    @Test
 //    void mainTeste() {
 //        List<String> lista = CamelCase.converterCamelCase("nome");
